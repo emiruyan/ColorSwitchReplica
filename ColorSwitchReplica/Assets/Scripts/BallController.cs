@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class BallController : MonoBehaviour
@@ -34,15 +35,21 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)//Tetiklendiği anda;
     {
-        if (col.tag != currentColor)
+        if (col.tag == "ColorChanger" ) //Ball'ın çarptığı objenin tagı ColorChanger'a eşit ise;
         {
-            Debug.Log("You Death"); 
+            RandomColor(); ////Topumuza rastgele renk atayacağımız fonksiyon
+            Destroy(col.gameObject);//Çarpıştığmız objeyi yok et
+            return;   
+        }
+        if (col.tag != currentColor) //Ball'ın çarptığı obje eşit değilse cuurentColor'a;
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//Oynadığımız sahneyi tekrar oynatıyoruz
         }
     }
 
     void RandomColor()//Topumuza rastgele renk atayacağımız fonksiyon
     {
-        int index = Random.Range(0, 4); //0 ve 4 arasında rastgele bir index oluşuturup index'e atadık
+        int index = Random.Range(0, 4); //0 ve 4 arasında rastgele bir rakam oluşuturup index'e atadık
         
         switch (index) //index case'e eşit olursa ball'ın rengi değişecek
         {
@@ -59,5 +66,7 @@ public class BallController : MonoBehaviour
                 spriteRenderer.color = colorPurple;
                 break;
         }
+        
+        
     }
 }

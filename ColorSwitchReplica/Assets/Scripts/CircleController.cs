@@ -13,7 +13,7 @@ public class CircleController : MonoBehaviour
  {
   if (direction == false) //direction false ise;
   {
-   transform.Rotate(0,0,speed * Time.deltaTime);
+   transform.Rotate(0,0, speed * Time.deltaTime);
    //x ve y 0 olarak kalsın z pozisyosnu hız ve zamanla çarpıp. Rotate edilsin
   }
   else
