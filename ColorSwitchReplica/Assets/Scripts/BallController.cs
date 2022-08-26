@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
+
 
 public class BallController : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class BallController : MonoBehaviour
     [SerializeField] private Color colorPurple;
 
     [SerializeField] private SpriteRenderer spriteRenderer; //Unity içerisindeki Sprite Renderer'a eriştik. 
+    [SerializeField] private int star;
+    [SerializeField] private Text startText;
+    
 
 
     private void Start()
@@ -35,6 +40,14 @@ public class BallController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)//Tetiklendiği anda;
     {
+        if (col.tag == "Star")
+        {
+            star++;
+            startText.text = star.ToString();
+            Destroy(col.gameObject);
+            return;
+        }
+        
         if (col.tag == "ColorChanger" ) //Ball'ın çarptığı objenin tagı ColorChanger'a eşit ise;
         {
             RandomColor(); ////Topumuza rastgele renk atayacağımız fonksiyon
